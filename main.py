@@ -1,7 +1,8 @@
 import os
+import argparse
 from dotenv import load_dotenv
 from google import genai
-import argparse
+from google.genai import types
 
 load_dotenv()
 
@@ -15,10 +16,13 @@ parser = argparse.ArgumentParser(description="Process a user prompt with an AI b
 parser.add_argument("user_prompt", type=str, help="User prompt for AI agent")
 args = parser.parse_args()
 
+# User message list for agent conversation
+messages = [types.Content(role="user", parts=types.Part(text=args.user_prompt))]
+
 # Setting the client and generating content for AI
 client = genai.Client(api_key=api_key)
 response = client.models.generate_content(
-    model='gemini-2.5-flash', contents=f"{args.user_prompt}")
+    model='gemini-2.5-flash', contents=f"{messages}")
 
 # counting the amount of prompt and response tokens used
 prompt_tokens = response.usage_metadata.prompt_token_count
