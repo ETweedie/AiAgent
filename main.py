@@ -17,7 +17,7 @@ parser.add_argument("user_prompt", type=str, help="User prompt for AI agent")
 args = parser.parse_args()
 
 # User message list for agent conversation
-messages = [types.Content(role="user", parts=types.Part(text=args.user_prompt))]
+messages = [types.Content(role="user", parts=[types.Part(text=args.user_prompt)])]
 
 # Setting the client and generating content for AI
 client = genai.Client(api_key=api_key)
