@@ -4,6 +4,7 @@ from google import genai
 import argparse
 
 load_dotenv()
+
 # Retrieve the API key 
 api_key = os.environ.get("GEMINI_API_KEY")
 if api_key is None:
