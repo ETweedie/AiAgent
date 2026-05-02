@@ -14,6 +14,7 @@ if api_key is None:
 # Getting prompt from the user from CLI
 parser = argparse.ArgumentParser(description="Process a user prompt with an AI bot")
 parser.add_argument("user_prompt", type=str, help="User prompt for AI agent")
+parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
 args = parser.parse_args()
 
 # User message list for agent conversation
@@ -32,8 +33,11 @@ if response_tokens is None:
     raise RuntimeError("Potential failed API call, no response!")
 
 def main():
-    print(f"Prompt tokens: {prompt_tokens}")
-    print(f"Response tokens: {response_tokens}")
+    if args.verbose:
+        print(f"User prompt: {args.user_prompt}")
+        print(f"Prompt tokens: {prompt_tokens}")
+        print(f"Response tokens: {response_tokens}")
+        print(response.text)
     print(response.text)
 
 if __name__ == "__main__":
