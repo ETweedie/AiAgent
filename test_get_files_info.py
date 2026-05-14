@@ -8,7 +8,7 @@ print("Results for 'pkg' directory:")
 print(get_files_info("calculator", "pkg"))
 print()
 
-print("Results for '/bin' directory:")
+print('Results for "/bin" directory:')
 print(get_files_info("calculator", "/bin"))
 print()
 

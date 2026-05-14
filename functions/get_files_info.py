@@ -9,10 +9,10 @@ def get_files_info(working_directory, directory="."):
     # checking to see if target directory falls within the absolute working directory
         valid_target_dir = os.path.commonpath([abs_working_dir, target_directory]) == abs_working_dir
         if not valid_target_dir:
-            return f"Error: Cannot list '{directory}' as it is outside the permitted working directory"
+            return f'Error: Cannot list "{directory}" as it is outside the permitted working directory'
     # checking to see if the directory is valid
         if not os.path.isdir(target_directory):
-            return f"Error: '{directory}' is not a directory"
+            return f'Error: "{directory}" is not a directory'
 
     # iterating over the contents of the target directory
         target_items = os.listdir(target_directory)
