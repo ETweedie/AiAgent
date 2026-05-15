@@ -13,3 +13,12 @@ def write_file(working_directory, file_path, content):
     # checking to see if the file path is an existing directory
         if os.path.isdir(target_directory):
             return f'Error: Cannot write to "{file_path}" as it is a directory'
+    # Making sure all parent directories of file path exist
+        os.makedirs(os.path.dirname(target_directory), exist_ok=True)
+    # Opening the file path in write mode and overwrite its contents with content variable
+        with open(target_directory, "w") as f:
+            f.write(content)
+        return f'Successfully wrote to "{file_path}" ({len(content)} characters written)'
+        
+    except Exception as e:
+        return f'Error: {e}'
