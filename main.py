@@ -3,6 +3,7 @@ import argparse
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from prompts import system_prompt
 
 load_dotenv()
 
@@ -23,7 +24,9 @@ messages = [types.Content(role="user", parts=[types.Part(text=args.user_prompt)]
 # Setting the client and generating content for AI
 client = genai.Client(api_key=api_key)
 response = client.models.generate_content(
-    model='gemini-2.5-flash', contents=f"{messages}")
+    model='gemini-2.5-flash', 
+    contents=messages, 
+    config=types.GenerateContentConfig(system_instruction=system_prompt, temperature=0),)
 
 # counting the amount of prompt and response tokens used
 prompt_tokens = response.usage_metadata.prompt_token_count
