@@ -1,5 +1,28 @@
 import os
 import subprocess
+from google.genai import types
+
+schema_run_python_file = types.FunctionDeclaration(
+    name="run_python_file",
+    description="Runs a given python file with the included file path and optional arguments",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        required=["file_path"],
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="File path used to find the given file, relative to the working directory (default is the working directory itself)"
+            ),
+            "args": types.Schema(
+                type=types.Type.ARRAY,
+                description="Arguments used for the given python file that is to be run",
+                items=types.Schema(
+                    type=types.Type.STRING,
+                )
+            )
+        }
+    )
+)
 
 def run_python_file(working_directory, file_path, args=None):
     try:
@@ -22,7 +45,7 @@ def run_python_file(working_directory, file_path, args=None):
             command.extend(args)
 
     # running the command with the subprocess run
-        result = subprocess.run(command, capture_output=True, timeout=30.00, text=True, check=True)
+        result = subprocess.run(command, capture_output=True, timeout=30.00, text=True)
         completed_string = 'Command output: '
         if result.returncode != 0:
             completed_string += f'Process exited with code {result.returncode}'
@@ -32,4 +55,4 @@ def run_python_file(working_directory, file_path, args=None):
         return completed_string
     
     except Exception as e:
-        return f'Error: {e}'
+        return f'Error: {e}' 

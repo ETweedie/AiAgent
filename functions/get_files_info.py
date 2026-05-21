@@ -43,4 +43,3 @@ def get_files_info(working_directory, directory="."):
         return "\n".join(lines)
     except Exception as e:
         return f"Error: {e}"
-        

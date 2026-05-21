@@ -1,5 +1,20 @@
 import os
+from google.genai import types
 
+schema_get_file_content = types.FunctionDeclaration(
+     name="get_file_content",
+     description="Gets the content of a given file path from a specified working directory, listing part of the file depending on its size",
+     parameters=types.Schema(
+          type=types.Type.OBJECT,
+          required=["file_path"],
+          properties={
+               "file_path": types.Schema(
+                    type=types.Type.STRING,
+                    description="File path used to find the given file, relative to the working directory (default is the working directory itself)"
+               )
+          }
+     )
+)
 def get_file_content(working_directory, file_path):
         try:
         # getting the absolute path for the working directory
@@ -25,4 +40,4 @@ def get_file_content(working_directory, file_path):
             return file_content_string
 
         except Exception as e:
-             return f"Error: {e}"
+             return f"Error: {e}" 

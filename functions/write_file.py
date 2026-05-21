@@ -1,4 +1,24 @@
 import os
+from google.genai import types
+
+schema_write_file = types.FunctionDeclaration(
+    name="write_file",
+    description="Writes or overwrites the contents of a file with the given content",
+    parameters=types.Schema(
+        type=types.Type.STRING,
+        required=["file_path", "content"],
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="File path used to locate the location of the file"
+            ),
+            "content": types.Schema(
+                type=types.Type.STRING,
+                description="Text used to create a new file or overwrite an existing file"
+            )
+        }
+    )
+)
 
 def write_file(working_directory, file_path, content):
     try:
@@ -21,4 +41,4 @@ def write_file(working_directory, file_path, content):
         return f'Successfully wrote to "{file_path}" ({len(content)} characters written)'
         
     except Exception as e:
-        return f'Error: {e}'
+        return f'Error: {e}' 
